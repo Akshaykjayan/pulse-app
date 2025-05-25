@@ -1,13 +1,59 @@
 
 <!DOCTYPE html>
 <html lang="en">
-<head>
+<head<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
+>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Pulse Messaging App</title>
   <link rel="stylesheet" href="style.css" />
 </head>
-<body>
+<body<button id="authBtn">Login / Signup</button>
+
+<div id="authModal" style="display: none;">
+  <h2>Login ya Signup karo</h2>
+  <input type="email" id="email" placeholder="Email" />
+  <input type="password" id="password" placeholder="Password" />
+  <button onclick="login()">Login</button>
+  <button onclick="signup()">Signup</button>
+</div>
+
+<script>
+const firebaseConfig = {
+    apiKey: "YAHAN_API_KEY_DALO",
+    authDomain: "YAHAN_PROJECT_ID.firebaseapp.com",
+    databaseURL: "https://YAHAN_PROJECT_ID.firebaseio.com",
+    projectId: "YAHAN_PROJECT_ID",
+    storageBucket: "YAHAN_PROJECT_ID.appspot.com",
+    messagingSenderId: "YAHAN_SENDER_ID",
+    appId: "YAHAN_APP_ID"
+  };
+
+  firebase.initializeApp(firebaseConfig);
+
+  const authModal = document.getElementById("authModal");
+  document.getElementById("authBtn").onclick = () => {
+    authModal.style.display = "block";
+  };
+
+ function login() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    firebase.auth().signInWithEmailAndPassword(email, password)
+      .then(() => alert("Login successful"))
+      .catch(err => alert(err.message));
+  }
+
+  function signup() {
+    const email = document.getElementById("email").value;
+    const password = document.getElementById("password").value;
+    firebase.auth().createUserWithEmailAndPassword(email, password)
+      .then(() => alert("Signup successful"))
+      .catch(err => alert(err.message));
+  }
+</script> 
   <div class="app">
     <header>
       <h1>Pulse</h1>
