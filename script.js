@@ -4,10 +4,9 @@ const firebaseConfig = {
   projectId: "pulseapp-2abd7",
   storageBucket: "pulseapp-2abd7.firebasestorage.app",
   messagingSenderId: "119459540649",
-  appId: "1:119459540649:web:696cb61adcc4c6a455c3b8",
-  measurementId: "G-H81MH732BB"
+  appId: "1:119459540649:web:f93d6b9ca3ee724e55c3b8",
+  measurementId: "G-7CPKPG89KR"
 };
-
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
