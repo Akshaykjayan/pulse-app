@@ -1,43 +1,88 @@
-
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
-  background-color: #121212;
-  color: #ffffff;
-  transition: background 0.3s, color 0.3s;
-}
-.app {
-  display: flex;
-  flex-direction: column;
+  padding: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #8e44ad, #2980b9);
   height: 100vh;
-}
-header {
-  padding: 1rem;
-  background: #1f1f1f;
-  text-align: center;
-}
-main {
-  flex: 1;
-  padding: 1rem;
-  overflow-y: auto;
-}
-footer {
-  padding: 1rem;
-  background: #1f1f1f;
   display: flex;
-  gap: 0.5rem;
+  align-items: center;
+  justify-content: center;
+  animation: gradientShift 10s ease infinite;
 }
-input {
-  flex: 1;
-  padding: 0.5rem;
-  border-radius: 5px;
-  border: none;
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
-button {
-  padding: 0.5rem 1rem;
-  background: #4CAF50;
-  border: none;
+
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.glass-card {
+  background: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(12px);
+  padding: 40px;
+  border-radius: 15px;
+  width: 320px;
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.2);
+  text-align: center;
   color: white;
-  border-radius: 5px;
+  animation: fadeIn 1s ease-out;
+}
+
+@keyframes fadeIn {
+  from { transform: translateY(20px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+
+.logo {
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 20px;
+  background: linear-gradient(135deg, #6c5ce7, #fd79a8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 12px;
+  border: none;
+  border-radius: 8px;
+  outline: none;
+}
+
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 20px;
+  background: linear-gradient(135deg, #6c5ce7, #fd79a8);
+  color: white;
+  font-size: 16px;
   cursor: pointer;
+}
+
+.switch-mode {
+  font-size: 14px;
+  margin-top: 15px;
+  color: white;
+}
+
+.switch-mode span {
+  color: #ffd6ff;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.error-msg {
+  margin-top: 10px;
+  color: #ff7675;
+  font-size: 14px;
 }
