@@ -2,26 +2,143 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Pulse – Login</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Pulse - Login</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary: #8338ec;
+      --accent: #ff006e;
+      --bg: #f8f9fa;
+      --dark: #2d3436;
+      --white: #fff;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      overflow: hidden;
+    }
+
+    .auth-card {
+      background: var(--white);
+      padding: 40px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 380px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+      animation: slideUp 0.8s ease forwards;
+      opacity: 0;
+      transform: translateY(30px);
+    }
+
+    @keyframes slideUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .auth-card h2 {
+      text-align: center;
+      color: var(--primary);
+      margin-bottom: 20px;
+    }
+
+    .auth-card input {
+      width: 100%;
+      padding: 12px 14px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 14px;
+    }
+
+    .auth-card button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(to right, var(--primary), var(--accent));
+      border: none;
+      color: white;
+      font-size: 16px;
+      border-radius: 10px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    .toggle-mode {
+      text-align: center;
+      margin-top: 15px;
+      font-size: 14px;
+      color: var(--primary);
+      cursor: pointer;
+    }
+  </style>
 </head>
 <body>
-  <div class="container">
-    <div class="form-box glass-card">
-      <h1 class="logo">pulse</h1>
-      <input type="email" id="email" placeholder="Email" />
-      <input type="password" id="password" placeholder="Password" />
-      <button id="submitBtn">Login</button>
-      <p class="switch-mode" id="toggleMode">Don't have an account? <span>Sign Up</span></p>
-      <p class="error-msg" id="errorMsg"></p>
-    </div>
+  <div class="auth-card">
+    <h2 id="formTitle">Login to Pulse</h2>
+    <input type="email" id="email" placeholder="Email" />
+    <input type="password" id="password" placeholder="Password" />
+    <button onclick="handleAuth()" id="authBtn">Login</button>
+    <div class="toggle-mode" onclick="toggleMode()" id="toggleText">Don't have an account? Sign Up</div>
+    <div id="errorMsg" style="color:red; font-size:13px; text-align:center; margin-top:10px;"></div>
   </div>
 
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js"></script>
-  <script src="auth.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+  <script>
+    const firebaseConfig = {
+      apiKey: "YOUR_API_KEY",
+      authDomain: "YOUR_PROJECT_ID.firebaseapp.com",
+      projectId: "YOUR_PROJECT_ID",
+      appId: "YOUR_APP_ID"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const auth = firebase.auth();
+
+    let loginMode = true;
+
+    function toggleMode() {
+      loginMode = !loginMode;
+      document.getElementById('formTitle').innerText = loginMode ? 'Login to Pulse' : 'Sign Up for Pulse';
+      document.getElementById('authBtn').innerText = loginMode ? 'Login' : 'Sign Up';
+      document.getElementById('toggleText').innerText = loginMode ? "Don't have an account? Sign Up" : "Already have an account? Login";
+      document.getElementById('errorMsg').innerText = '';
+    }
+
+    function handleAuth() {
+      const email = document.getElementById('email').value.trim();
+      const password = document.getElementById('password').value.trim();
+      const errorMsg = document.getElementById('errorMsg');
+
+      if (!email || !password) {
+        errorMsg.innerText = 'Please fill in all fields.';
+        return;
+      }
+
+      if (loginMode) {
+        auth.signInWithEmailAndPassword(email, password)
+          .then(() => alert('Logged in successfully!'))
+          .catch(err => errorMsg.innerText = err.message);
+      } else {
+        auth.createUserWithEmailAndPassword(email, password)
+          .then(() => alert('Account created!'))
+          .catch(err => errorMsg.innerText = err.message);
+      }
+    }
+  </script>
 </body>
 </html>
