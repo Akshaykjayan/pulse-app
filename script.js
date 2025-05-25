@@ -2,9 +2,10 @@ const firebaseConfig = {
   apiKey: "AIzaSyDzp7dTMTnMyFrNk-grwB-lCa7CHCnd09o",
   authDomain: "pulseapp-2abd7.firebaseapp.com",
   projectId: "pulseapp-2abd7",
-  storageBucket: "pulseapp-2abd7.appspot.com",
+  storageBucket: "pulseapp-2abd7.firebasestorage.app",
   messagingSenderId: "119459540649",
   appId: "1:119459540649:web:696cb61adcc4c6a455c3b8",
+  measurementId: "G-H81MH732BB"
 };
 
 firebase.initializeApp(firebaseConfig);
